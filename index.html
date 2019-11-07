@@ -1,18 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Three JS</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <title>Tracerwatch</title>
 </head>
+
 <body>
+
+    <div id="about-button"></div>
+
+    <div id="about" class=""> <!-- #TODO visible na class tira o pop up ou coloca, vou arrumar a lógica ainda -->
+        <div class="popup">
+            <div class="inner">
+                <h1>Tracerwatch</h1>
+                <div class="description">
+
+                    <p>descrição.</p>
+
+                    <p>descrição.</p>
+
+                    <p>Feito com: Three.js e Blender.</p>
+
+                </div>
+                <div class="footer">
+                    <div class="sharing">
+                        <div class="text">Equipe</div>
+                        <div class="icons">
+                            <div class="icon social_t">
+                                <a href="https://github.com/cksar">
+                                    <img class="img-group" src="img/equipe/cesar.jpg" width="65" height="60">
+                                </a>
+                            </div>
+                            <div class="icon social_t">
+                                <a href="https://github.com/IaraGrossert">
+                                    <img class="img-group" src="img/equipe/iara.jpg" width="65" height="60">
+                                </a>
+                            </div>
+                            <div class="icon social_t">
+                                <a href="https://github.com/Keemluvr">
+                                    <img class="img-group" src="img/equipe/keila.jpg" width="65" height="60">
+                                </a>
+                            </div>
+                            <div class="icon social_t">
+                                <a href="https://github.com/wilsonfcj">
+                                    <img class="img-group" src="img/equipe/wilson.jpg" width="65" height="60">
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <p class="small">
+                        Feito pelos alunos de Ciência da Computação do Instituto Federal de Santa Catarina do <a
+                            href="https://www.ifsc.edu.br/web/campus-lages">Campus Lages</a>.
+                    </p>
+                </div>
+                <div class="close" id="about-close"></div>
+            </div>
+        </div>
+    </div>
+
     <script src="libs/three.min.js"></script>
     <script src="libs/OrbitControls.js"></script>
 
@@ -20,4 +70,5 @@
     <script src="iluminacao/iluminacao.js"></script>
     <script src="movimentacao.js"></script>
 </body>
+
 </html>
