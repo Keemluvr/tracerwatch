@@ -6,6 +6,11 @@ var moveLeft = false;
 var moveRight = false;
 var canJump = false;
 
+// inicia um vetor de 256 teclas
+let teclas = []
+for (let i = 0; i < 256; i++) {
+    teclas[i] = false
+}
 
 // ----------------------  Corpo da tracer ----------------------
 var mtlLoader = new THREE.MTLLoader();
@@ -65,84 +70,73 @@ mtlLoader.load('./models/Tracer_Glass_Printable.mtl', function (materials) {
 });
 
 function desenhar() {
-    if ( controls.isLocked === true ) {
-        raycaster.ray.origin.copy( controls.getObject().position );
-        raycaster.ray.origin.y -= 10;
-        var intersections = raycaster.intersectObjects( objects );
-        var onObject = intersections.length > 0;
-        var time = performance.now();
-        var delta = ( time - prevTime ) / 1000;
-        velocity.x -= velocity.x * 10.0 * delta;
-        velocity.z -= velocity.z * 10.0 * delta;
-        velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
-        direction.z = Number( moveForward ) - Number( moveBackward );
-        direction.x = Number( moveRight ) - Number( moveLeft );
-        direction.normalize(); // this ensures consistent movements in all directions
-        if ( moveForward || moveBackward ) velocity.z -= direction.z * 400.0 * delta;
-        if ( moveLeft || moveRight ) velocity.x -= direction.x * 400.0 * delta;
-        if ( onObject === true ) {
-            velocity.y = Math.max( 0, velocity.y );
-            canJump = true;
-        }
-        controls.moveRight( - velocity.x * delta );
-        controls.moveForward( - velocity.z * delta );
-        controls.getObject().position.y += ( velocity.y * delta ); // new behavior
-        if ( controls.getObject().position.y < 10 ) {
-            velocity.y = 0;
-            controls.getObject().position.y = 10;
-            canJump = true;
-        }
-        prevTime = time;
-    }
+    processaTeclas()
     requestAnimationFrame(desenhar)
 }
 
 requestAnimationFrame(desenhar)
 
-// movimento
-var raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
-document.onkeyup = (evt) => {
-    switch ( event.keyCode ) {
-        case 38: // up
-        case 87: // w
-            moveForward = false;
-            break;
-        case 37: // left
-        case 65: // a
-            moveLeft = false;
-            break;
-        case 40: // down
-        case 83: // s
-            moveBackward = false;
-            break;
-        case 39: // right
-        case 68: // d
-            moveRight = false;
-            break;
-    }
-};
-
 document.onkeydown = (evt) => {
-    switch ( event.keyCode ) {
-        case 38: // up
-        case 87: // w
-            moveForward = true;
-            break;
-        case 37: // left
-        case 65: // a
-            moveLeft = true;
-            break;
-        case 40: // down
-        case 83: // s
-            moveBackward = true;
-            break;
-        case 39: // right
-        case 68: // d
-            moveRight = true;
-            break;
-        case 32: // space
-            if ( canJump === true ) velocity.y += 350;
-            canJump = false;
-            break;
-    }
+    teclas[evt.keyCode] = true
 }
+
+document.onkeyup = (evt) => {
+    teclas[evt.keyCode] = false
+}
+
+function processaTeclas() {
+    // Movimentação
+    if (teclas[87]&&teclas[68]) { // W - frente
+        tracerBody.position.x -= 2
+        tracerHead.position.x -= 2
+        tracerGlass.position.x -= 2
+
+        tracerBody.position.z -= 2
+        tracerHead.position.z -= 2
+        tracerGlass.position.z -= 2
+
+        tracerBody.rotation.y = 3.5
+        tracerHead.rotation.y = 3.5
+        tracerGlass.rotation.y = 3.5
+        
+    }
+    if (teclas[87]) { // W - frente
+        tracerBody.position.z -= 2
+        tracerHead.position.z -= 2
+        tracerGlass.position.z -= 2
+        tracerBody.rotation.y = 3
+        tracerHead.rotation.y = 3
+        tracerGlass.rotation.y = 3
+        
+    }
+    if (teclas[83]) { // S - trás
+        tracerBody.position.z += 2
+        tracerHead.position.z += 2
+        tracerGlass.position.z += 2
+
+        tracerBody.rotation.y = 0
+        tracerHead.rotation.y = 0
+        tracerGlass.rotation.y = 0   
+
+    }
+    if (teclas[68]) { // D - direita
+        tracerBody.position.x += 2
+        tracerHead.position.x += 2
+        tracerGlass.position.x += 2
+
+        tracerBody.rotation.y = 1
+        tracerHead.rotation.y = 1
+        tracerGlass.rotation.y = 1   
+    }
+    if (teclas[65]) { // A - esquerda
+        tracerBody.position.x -= 2
+        tracerHead.position.x -= 2
+        tracerGlass.position.x -= 2
+        
+        tracerBody.rotation.y = 4
+        tracerHead.rotation.y = 4
+        tracerGlass.rotation.y = 4
+    }
+
+}
+

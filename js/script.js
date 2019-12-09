@@ -54,10 +54,10 @@ function init() {
 
 	// controls
 	 controls = new THREE.OrbitControls(camera, renderer.domElement);
-	// controls.addEventListener('change', render);
-	// controls.enableZoom = true;
-	// controls.enablePan = false;
-	// controls.maxPolarAngle = Math.PI / 2;
+	 controls.addEventListener('change', render);
+	 controls.enableZoom = true;
+	 controls.enablePan = false;
+	 controls.maxPolarAngle = Math.PI / 2;
 
 	// ambient
 	scene.add(new THREE.AmbientLight(0x444444));
@@ -85,7 +85,7 @@ function init() {
 
 
 function render() {
-
 	renderer.render(scene, camera);
-
+	requestAnimationFrame(render)
 }
+requestAnimationFrame(render)
