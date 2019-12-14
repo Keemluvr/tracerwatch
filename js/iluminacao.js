@@ -15,7 +15,7 @@ luzPonto.position.set(2, 2, 3)
 
 
 // Adiciona à cena
-scene.add(
+cena.add(
     luzAmbiente,
     luzPonto
 )
